@@ -23,6 +23,7 @@ routes.post('/students/:id/help-orders', StudentHelpOrderController.store);
 // Auth middleware will be applied to below declared routes
 routes.use(authMiddleware);
 
+routes.get('/students', StudentController.index);
 routes.post('/students', StudentController.store);
 routes.put('/students/:id', StudentController.update);
 
