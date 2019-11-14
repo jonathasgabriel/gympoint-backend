@@ -1,7 +1,103 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { MdAdd } from 'react-icons/md';
+import history from '~/services/history';
 
-// import { Container } from './styles';
+import { Container, Header, StudentTable, CrudButton } from './styles';
+
+import api from '~/services/api';
 
 export default function Students() {
-  return <h1>Students</h1>;
+  const [students, setStudents] = useState([]);
+  const [searchStudent, setSearchStudent] = useState('');
+
+  useEffect(() => {
+    async function loadStudents() {
+      const response = await api.get('students');
+
+      setStudents(response.data);
+    }
+
+    loadStudents();
+  }, []);
+
+  function handleInputChange(e) {
+    setSearchStudent(e.target.value);
+    console.tron.log(searchStudent);
+  }
+
+  function handleAddStudent() {
+    history.push('/students/add');
+  }
+
+  function handleEditStudent() {
+    history.push('/students/edit');
+  }
+
+  function handleDeleteStudent(e) {
+    console.tron.log('deleted');
+  }
+
+  return (
+    <Container>
+      <Header>
+        <strong>Manage Students</strong>
+        <div>
+          <button type="button" onClick={handleAddStudent}>
+            <MdAdd size={20} />
+            Add Student
+          </button>
+          <input
+            placeholder="Search student"
+            value={searchStudent}
+            onChange={handleInputChange}
+          />
+        </div>
+      </Header>
+      <StudentTable>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>E-mail</th>
+            <th>Age</th>
+            <th />
+          </tr>
+        </thead>
+        <tbody>
+          {students.map(student => (
+            <tr>
+              <td>
+                <span>{student.name}</span>
+              </td>
+              <td>
+                <span>{student.email}</span>
+              </td>
+              <td>
+                <span>{student.age}</span>
+              </td>
+              <td>
+                <div>
+                  <CrudButton type="button" edit onClick={handleEditStudent}>
+                    editar
+                  </CrudButton>
+                  <CrudButton
+                    type="button"
+                    onClick={e => {
+                      if (
+                        window.confirm(
+                          'Are you sure you wish to delete this item?'
+                        )
+                      )
+                        handleDeleteStudent(e);
+                    }}
+                  >
+                    apagar
+                  </CrudButton>
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </StudentTable>
+    </Container>
+  );
 }

@@ -12,59 +12,59 @@ export const Wrapper = styled.div`
 
 export const Content = styled.div`
   width: 100%;
+  background: #fff;
   max-width: 315px;
+  border-radius: 4px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  background-color: #ffffff;
   text-align: center;
+
+  img {
+    margin-top: 40px;
+  }
 
   form {
     display: flex;
     flex-direction: column;
-    margin-top: 30px;
+    align-items: center;
+    margin-top: 40px;
 
     input {
-      background: rgba(0, 0, 0, 0.1);
-      border: 0;
+      width: 250px;
+      height: 45px;
       border-radius: 4px;
-      height: 44px;
-      padding: 0 15px;
-      color: #fff;
-      margin: 0 0 10px;
+      border: solid 1px #dddddd;
+      background-color: #ffffff;
+      padding-left: 15px;
+      margin-top: 8px;
 
       &::placeholder {
-        color: rgba(255, 255, 255, 0.7);
+        color: #999999;
       }
     }
 
     span {
-      color: #fb6f91;
-      align-self: flex-start;
-      margin: 0 0 10px;
+      color: #444444;
+      font-size: 16px;
       font-weight: bold;
+      margin: 25px 0px 0px 32px;
+      align-self: flex-start;
     }
 
     button {
-      margin: 5px 0 0;
-      height: 44px;
-      background: #3b9eff;
+      margin: 25px 0 25px;
+      height: 45px;
+      width: 250px;
+      background: #ee4d64;
       font-weight: bold;
       color: #fff;
       border: 0;
       border-radius: 4px;
       font-size: 16px;
-      transition: background 0.2s;
+      transition: background 0.3s;
 
       &:hover {
-        background: ${darken(0.06, '#3b9eff')};
-      }
-    }
-
-    a {
-      color: #fff;
-      margin-top: 15px;
-      font-size: 16px;
-      opacity: 0.8;
-
-      &:hover {
-        opacity: 1;
+        background: ${darken(0.09, '#ee4d64')};
       }
     }
   }

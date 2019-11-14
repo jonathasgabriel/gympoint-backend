@@ -17,13 +17,13 @@ export default function Routes() {
   return (
     <Switch>
       <Route exact path="/" component={SignIn} />
-      <Route path="/students" isPrivate component={Students} />
+      <Route exact path="/students" isPrivate component={Students} />
       <Route path="/students/add" isPrivate component={AddStudent} />
       <Route path="/students/edit" isPrivate component={EditStudent} />
-      <Route path="/plans" isPrivate component={Plans} />
+      <Route exact path="/plans" isPrivate component={Plans} />
       <Route path="/plans/add" isPrivate component={AddPlan} />
       <Route path="/plans/edit" isPrivate component={EditPlan} />
-      <Route path="/enrollments" isPrivate component={Enrollments} />
+      <Route exact path="/enrollments" isPrivate component={Enrollments} />
       <Route path="/enrollments/add" isPrivate component={AddEnrollment} />
       <Route path="/enrollments/edit" isPrivate component={EditEnrollment} />
       <Route path="/" component={() => <h1>404 - Page not found</h1>} />

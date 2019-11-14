@@ -1,54 +1,94 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  max-width: 600px;
+  max-width: 1200px;
   margin: 50px auto;
-
   display: flex;
   flex-direction: column;
+`;
 
-  header {
+export const Header = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 25px;
+
+  div {
     display: flex;
-    align-self: center;
-    align-items: center;
+    justify-content: space-between;
 
     button {
-      border: 0;
-      background: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 142px;
+      height: 36px;
+      border-radius: 4px;
+      background-color: #ee4d64;
+      color: #fff;
+      font-family: Roboto;
+      font-size: 14px;
     }
 
-    strong {
-      color: #fff;
-      font-size: 24px;
-      margin: 0 15px;
+    input {
+      margin-left: 15px;
+      width: 237px;
+      height: 36px;
+      border-radius: 4px;
+      padding-left: 40px;
+      border: solid 1px #dddddd;
     }
   }
 
-  ul {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 15px;
-    margin-top: 30px;
+  strong {
+    width: 215px;
+    height: 28px;
+    font-family: Roboto;
+    font-size: 24px;
+    font-weight: bold;
+    color: #444444;
   }
 `;
 
-export const Time = styled.li`
-  padding: 20px;
-  border-radius: 4px;
+export const StudentTable = styled.table`
+  width: 100%;
   background: #fff;
+  border-radius: 4px;
 
-  opacity: ${props => (props.past ? 0.6 : 1)};
+  thead th {
+    width: 100%;
+    text-align: left;
+    padding: 12px;
+    width: 46px;
+    height: 19px;
+    font-family: Roboto;
+    font-size: 16px;
+    color: #444444;
+  }
+
+  tbody td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+    width: 79px;
+    height: 20px;
+    font-family: Roboto;
+    font-size: 16px;
+    color: #666666;
+  }
 
   strong {
+    color: #333;
     display: block;
-    color: ${props => (props.available ? '#999' : '#7159c1')};
-    font-size: 20px;
-    font-weight: normal;
   }
 
-  span {
-    display: block;
-    margin-top: 3px;
-    color: ${props => (props.available ? '#999' : '#7159c1')};
+  div {
+    display: flex;
   }
+`;
+
+export const CrudButton = styled.button`
+  color: ${props => (props.edit ? '#4d85ee' : '#de3b3b')};
+  margin: 5px;
+  background: none;
+  border: none;
 `;

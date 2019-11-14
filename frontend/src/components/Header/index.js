@@ -1,38 +1,36 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { signOut } from '~/store/modules/auth/actions';
 
-import { Container, Content, Profile } from './styles';
-import Notification from '~/components/Notifications';
-import logo from '~/assets/logo.svg';
+import { Container, Content } from './styles';
+import logo from '~/assets/logo-header.svg';
 
 export default function Header() {
-  const profile = useSelector(state => state.user.profile);
+  const dispatch = useDispatch();
 
+  const username = useSelector(state => state.user.user.name);
+
+  function handleLogout() {
+    dispatch(signOut());
+  }
   return (
     <Container>
       <Content>
         <nav>
-          <img src={logo} alt="GoBarber" />
-          <Link to="/dashboard"> Dashboard</Link>
+          <img src={logo} alt="GymPoint" />
+          <Link to="/students"> Students</Link>
+          <Link to="/students"> Plans</Link>
+          <Link to="/students"> Enrollments</Link>
+          <Link to="/students"> Help Orders</Link>
         </nav>
 
-        <aside>
-          <Notification />
-          <Profile>
-            <div>
-              <strong>{profile.name}</strong>
-              <Link to="/profile">My Profile</Link>
-            </div>
-            <img
-              src={
-                profile.avatar.url ||
-                'https://api.adorable.io/avatars/50/abott@adorable.png'
-              }
-              alt="adorable-io"
-            />
-          </Profile>
-        </aside>
+        <div>
+          <span>{username}</span>
+          <button type="button" onClick={handleLogout}>
+            Logout
+          </button>
+        </div>
       </Content>
     </Container>
   );
