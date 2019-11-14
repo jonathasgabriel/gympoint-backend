@@ -29,12 +29,10 @@ export default function Students() {
     history.push('/students/add');
   }
 
-  function handleEditStudent() {
-    history.push('/students/edit');
-  }
+  async function handleDeleteStudent(id) {
+    await api.delete(`students/${id}`);
 
-  function handleDeleteStudent(e) {
-    console.tron.log('deleted');
+    setStudents(students.filter(student => student.id !== id));
   }
 
   return (
@@ -76,21 +74,26 @@ export default function Students() {
               </td>
               <td>
                 <div>
-                  <CrudButton type="button" edit onClick={handleEditStudent}>
-                    editar
+                  <CrudButton
+                    type="button"
+                    edit
+                    onClick={() => history.push(`/students/edit/${student.id}`)}
+                  >
+                    edit
                   </CrudButton>
                   <CrudButton
                     type="button"
-                    onClick={e => {
+                    onClick={() => {
                       if (
+                        // eslint-disable-next-line no-alert
                         window.confirm(
                           'Are you sure you wish to delete this item?'
                         )
                       )
-                        handleDeleteStudent(e);
+                        handleDeleteStudent(student.id);
                     }}
                   >
-                    apagar
+                    delete
                   </CrudButton>
                 </div>
               </td>

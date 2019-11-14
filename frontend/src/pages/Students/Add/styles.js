@@ -5,42 +5,43 @@ export const Container = styled.div`
   margin: 50px auto;
   display: flex;
   flex-direction: column;
-`;
 
-export const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-top: 25px;
-  border-radius: 4px;
-  background: #fff;
-
-  > input {
-    margin: 5px 40px;
+  form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 25px;
     border-radius: 4px;
-    border: solid 1px #dddddd;
-    height: 44px;
-    padding: 0 15px;
-  }
+    background: #fff;
 
-  > strong {
-    margin: 25px 40px 0;
-    width: 118px;
-    height: 16px;
-    font-family: Roboto;
-    font-size: 14px;
-    font-weight: bold;
-    color: #444444;
+    > input {
+      margin: 5px 40px;
+      border-radius: 4px;
+      border: solid 1px #dddddd;
+      height: 44px;
+      padding: 0 15px;
+    }
+
+    > strong {
+      margin: 25px 40px 0;
+      width: 118px;
+      height: 16px;
+      font-family: Roboto;
+      font-size: 14px;
+      font-weight: bold;
+      color: #444444;
+    }
   }
-}
 `;
 
 export const InfoWrapper = styled.div`
   display: flex;
+  flex: 1;
   justify-content: space-around;
   margin: -5px 40px 25px;
+  flex-wrap: wrap;
 
   input {
-    width: 270px;
+    max-width: 270px;
     height: 45px;
     border-radius: 4px;
     border: solid 1px #dddddd;
@@ -50,6 +51,7 @@ export const InfoWrapper = styled.div`
 
   div {
     display: flex;
+    flex: 1;
     flex-direction: column;
   }
 

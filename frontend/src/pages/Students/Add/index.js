@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
 import { MdDone, MdKeyboardArrowLeft } from 'react-icons/md';
@@ -8,13 +9,7 @@ import history from '~/services/history';
 
 import api from '~/services/api';
 
-import {
-  Container,
-  Header,
-  HeaderButton,
-  InfoWrapper,
-  Wrapper,
-} from './styles';
+import { Container, Header, HeaderButton, InfoWrapper } from './styles';
 
 const schema = Yup.object().shape({
   email: Yup.string()
@@ -26,14 +21,28 @@ const schema = Yup.object().shape({
   name: Yup.string().required('Name is required'),
 });
 
-export default function AddStudent() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [age, setAge] = useState();
-  const [weight, setWeight] = useState();
-  const [height, setHeight] = useState();
+export default function AddStudent(props) {
+  const [initialStudent, setInitialStudent] = useState({});
 
-  async function handleSave() {
+  useEffect(() => {
+    async function loadStudent(id) {
+      const response = await api.get(`students/${id}`);
+
+      setInitialStudent(response.data);
+      console.tron.log(initialStudent);
+    }
+
+    const { id } = props.match.params;
+
+    if (id) {
+      loadStudent(id);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  async function handleSubmit({ name, email, age, weight, height }) {
+    console.tron.log('submitted');
     try {
       await api.post('students', {
         name,
@@ -65,54 +74,51 @@ export default function AddStudent() {
             <MdKeyboardArrowLeft size={20} />
             Back
           </HeaderButton>
-          <HeaderButton type="button" onClick={handleSave}>
+          <HeaderButton
+            type="submit"
+            value="submit"
+            form="student-form"
+            onClick={handleSubmit}
+          >
             <MdDone size={20} />
             Save
           </HeaderButton>
         </div>
       </Header>
 
-      <Wrapper>
+      <Form
+        id="student-form"
+        initialData={initialStudent}
+        schema={schema}
+        onSubmit={handleSubmit}
+      >
         <strong>Full Name</strong>
-        <input
-          name="name"
-          placeholder="Full name"
-          onChange={e => setName(e.target.value)}
-        />
+        <Input name="name" placeholder="Full name" />
         <strong>E-mail</strong>
-        <input
-          name="email"
-          type="email"
-          placeholder="example@example.com"
-          onChange={e => setEmail(e.target.value)}
-        />
+        <Input name="email" type="email" placeholder="example@example.com" />
         <InfoWrapper>
           <div>
             <strong>Age</strong>
-            <input
-              name="age"
-              type="number"
-              onChange={e => setAge(e.target.value)}
-            />
+            <Input name="age" type="number" />
           </div>
           <div>
             <strong>Weight</strong>
-            <input
-              name="weight"
-              type="number"
-              onChange={e => setWeight(e.target.value)}
-            />
+            <Input name="weight" type="number" />
           </div>
           <div>
             <strong>Height</strong>
-            <input
-              name="height"
-              type="number"
-              onChange={e => setHeight(e.target.value)}
-            />
+            <Input name="height" type="number" />
           </div>
         </InfoWrapper>
-      </Wrapper>
+      </Form>
     </Container>
   );
 }
+
+AddStudent.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }).isRequired,
+};
