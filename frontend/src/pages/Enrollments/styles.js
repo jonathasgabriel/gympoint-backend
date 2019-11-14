@@ -27,7 +27,7 @@ export const Header = styled.div`
   }
 
   strong {
-    width: 215px;
+    min-width: 215px;
     height: 28px;
     font-family: Roboto;
     font-size: 24px;
@@ -36,7 +36,7 @@ export const Header = styled.div`
   }
 `;
 
-export const PlanTable = styled.table`
+export const StudentTable = styled.table`
   width: 100%;
   background: #fff;
   border-radius: 4px;

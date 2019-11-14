@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { MdAdd } from 'react-icons/md';
+import { toast } from 'react-toastify';
 import history from '~/services/history';
 
 import { Container, Header, StudentTable, CrudButton } from './styles';
@@ -25,14 +26,11 @@ export default function Students() {
     console.tron.log(searchStudent);
   }
 
-  function handleAddStudent() {
-    history.push('/students/add');
-  }
-
   async function handleDeleteStudent(id) {
     await api.delete(`students/${id}`);
 
     setStudents(students.filter(student => student.id !== id));
+    toast.success('Student deleted successfully');
   }
 
   return (
@@ -40,7 +38,7 @@ export default function Students() {
       <Header>
         <strong>Manage Students</strong>
         <div>
-          <button type="button" onClick={handleAddStudent}>
+          <button type="button" onClick={() => history.push('/students/add')}>
             <MdAdd size={20} />
             Add Student
           </button>

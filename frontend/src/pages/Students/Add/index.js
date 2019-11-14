@@ -2,34 +2,37 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
-import { MdDone, MdKeyboardArrowLeft } from 'react-icons/md';
 import { toast } from 'react-toastify';
+
+import SaveButton from '~/components/Buttons/SaveButton';
+import BackButton from '~/components/Buttons/BackButton';
 
 import history from '~/services/history';
 
 import api from '~/services/api';
 
-import { Container, Header, HeaderButton, InfoWrapper } from './styles';
+import { Container, Header, InfoWrapper } from './styles';
 
 const schema = Yup.object().shape({
+  name: Yup.string().required('Name is required'),
   email: Yup.string()
     .email('Invalid Email')
     .required('Email is required'),
-  password: Yup.string()
-    .min(6, 'Password requires at least 6 characters')
-    .required('Password is required'),
-  name: Yup.string().required('Name is required'),
+  age: Yup.string().required('Age is required'),
+  weight: Yup.string().required('Weight is required'),
+  height: Yup.string().required('Height is required'),
 });
 
 export default function AddStudent(props) {
   const [initialStudent, setInitialStudent] = useState({});
+  const [editMode, setEditMode] = useState(false);
 
   useEffect(() => {
     async function loadStudent(id) {
       const response = await api.get(`students/${id}`);
 
       setInitialStudent(response.data);
-      console.tron.log(initialStudent);
+      setEditMode(true);
     }
 
     const { id } = props.match.params;
@@ -37,22 +40,33 @@ export default function AddStudent(props) {
     if (id) {
       loadStudent(id);
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   async function handleSubmit({ name, email, age, weight, height }) {
-    console.tron.log('submitted');
     try {
-      await api.post('students', {
-        name,
-        email,
-        age,
-        weight,
-        height,
-      });
+      if (editMode) {
+        await api.put(`students/${initialStudent.id}`, {
+          name,
+          email,
+          age,
+          weight,
+          height,
+        });
 
-      toast.success('Student registered successfully');
+        toast.success('Student updated successfully');
+      } else {
+        await api.post('students', {
+          name,
+          email,
+          age,
+          weight,
+          height,
+        });
+
+        toast.success('Student registered successfully');
+      }
+
       history.push('/students');
     } catch (err) {
       toast.error(
@@ -61,28 +75,13 @@ export default function AddStudent(props) {
     }
   }
 
-  function handleNavigationBack() {
-    history.push('/students');
-  }
-
   return (
     <Container>
       <Header>
-        <strong>Register Student</strong>
+        <strong>{editMode ? 'Edit Student' : 'Register Student'}</strong>
         <div>
-          <HeaderButton back type="button" onClick={handleNavigationBack}>
-            <MdKeyboardArrowLeft size={20} />
-            Back
-          </HeaderButton>
-          <HeaderButton
-            type="submit"
-            value="submit"
-            form="student-form"
-            onClick={handleSubmit}
-          >
-            <MdDone size={20} />
-            Save
-          </HeaderButton>
+          <BackButton redirectPage="/students" />
+          <SaveButton formSubmit="student-form" />
         </div>
       </Header>
 

@@ -20,8 +20,8 @@ export default function Header() {
         <nav>
           <img src={logo} alt="GymPoint" />
           <Link to="/students"> Students</Link>
-          <Link to="/students"> Plans</Link>
-          <Link to="/students"> Enrollments</Link>
+          <Link to="/plans"> Plans</Link>
+          <Link to="/enrollments"> Enrollments</Link>
           <Link to="/students"> Help Orders</Link>
         </nav>
 
