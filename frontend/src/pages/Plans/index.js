@@ -42,7 +42,7 @@ export default function Plans() {
           <tr>
             <th>Title</th>
             <th>Duration (in months)</th>
-            <th>Price (monthly)</th>
+            <th>Price (per month)</th>
             <th />
           </tr>
         </thead>

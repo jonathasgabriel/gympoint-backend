@@ -1,5 +1,8 @@
 import styled from 'styled-components';
 
+import Select from 'react-select';
+import DatePicker from 'react-datepicker';
+
 export const Container = styled.div`
   max-width: 900px;
   margin: 50px auto;
@@ -49,7 +52,7 @@ export const InfoWrapper = styled.div`
     margin-top: 5px;
   }
 
-  div {
+  > div {
     display: flex;
     flex: 1;
     flex-direction: column;
@@ -63,6 +66,35 @@ export const InfoWrapper = styled.div`
     font-size: 14px;
     font-weight: bold;
     color: #444444;
+  }
+`;
+
+export const CustomDatePicker = styled(DatePicker)``;
+
+export const CustomSelect = styled(Select)`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  max-width: 270px;
+  height: 45px;
+  border-radius: 4px;
+  margin-top: 5px;
+
+  div {
+    display: flex;
+    margin: 0;
+    padding-left: 5px;
+    padding-bottom: 10px;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+
+    div {
+    }
+
+    span {
+      margin-bottom: 15px;
+    }
   }
 `;
 

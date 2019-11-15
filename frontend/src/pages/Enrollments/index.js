@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { MdAdd } from 'react-icons/md';
+import { format, parseISO } from 'date-fns';
+import { MdAdd, MdCheckCircle } from 'react-icons/md';
 import { toast } from 'react-toastify';
+import en from 'date-fns/locale/en-US';
 import history from '~/services/history';
 
 import { Container, Header, StudentTable, CrudButton } from './styles';
@@ -14,7 +16,22 @@ export default function Enrollments() {
     async function loadEnrollments() {
       const response = await api.get('enrollments');
 
-      setEnrollments(response.data);
+      const data = response.data.map(enrollment => {
+        return {
+          id: enrollment.id,
+          student: enrollment.student.name,
+          plan: enrollment.plan.title,
+          startDate: format(parseISO(enrollment.start_date), 'MMMM d, yyyy', {
+            locale: en,
+          }),
+          endDate: format(parseISO(enrollment.end_date), 'MMMM d, yyyy', {
+            locale: en,
+          }),
+          active: enrollment.active,
+        };
+      });
+
+      setEnrollments(data);
     }
 
     loadEnrollments();
@@ -51,19 +68,25 @@ export default function Enrollments() {
           {enrollments.map(enrollment => (
             <tr>
               <td>
-                <span>name</span>
+                <span>{enrollment.student}</span>
               </td>
               <td>
-                <span>plano</span>
+                <span>{enrollment.plan}</span>
               </td>
               <td>
-                <span>{enrollment.start_date}</span>
+                <span>{enrollment.startDate}</span>
               </td>
               <td>
-                <span>{enrollment.end_date}</span>
+                <span>{enrollment.endDate}</span>
               </td>
               <td>
-                <span>{enrollment.active}</span>
+                <span>
+                  {enrollment.active ? (
+                    <MdCheckCircle color="#42cb59" />
+                  ) : (
+                    <MdCheckCircle color="#dddd" />
+                  )}
+                </span>
               </td>
               <td>
                 <div>
