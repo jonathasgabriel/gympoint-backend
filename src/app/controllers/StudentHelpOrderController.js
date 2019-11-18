@@ -6,7 +6,7 @@ import Student from '../models/Student';
 class StudentHelpOrderController {
   async index(req, res) {
     const helpOrders = await HelpOrder.find({
-      student: req.params.id,
+      studentId: req.params.id,
     }).sort({
       createdAt: 'desc',
     });
@@ -30,7 +30,8 @@ class StudentHelpOrderController {
     }
 
     const helpOrder = await HelpOrder.create({
-      student: req.params.id,
+      studentId: req.params.id,
+      studentName: student.name,
       question: req.body.question,
     });
 

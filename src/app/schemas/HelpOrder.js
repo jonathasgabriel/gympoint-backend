@@ -2,8 +2,12 @@ import mongoose from 'mongoose';
 
 const HelpOrder = new mongoose.Schema(
   {
-    student: {
+    studentId: {
       type: Number,
+      required: true,
+    },
+    studentName: {
+      type: String,
       required: true,
     },
     question: {
