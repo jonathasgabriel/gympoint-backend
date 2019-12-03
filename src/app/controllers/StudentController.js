@@ -73,7 +73,7 @@ class StudentController {
       name: Yup.string(),
       email: Yup.string().email(),
       age: Yup.number().positive(),
-      weigth: Yup.number().positive(), // verificar pq ta aceitando numero negativo
+      weigth: Yup.number().positive(),
       heigth: Yup.number().positive(),
     });
 
