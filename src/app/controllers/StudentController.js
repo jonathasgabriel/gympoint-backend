@@ -9,7 +9,7 @@ class StudentController {
     const students = await Student.findAll({
       where: {
         name: {
-          [Op.iLike]: name ? `%${name}` : '%',
+          [Op.like]: name ? `%${name}` : '%',
         },
       },
     });
