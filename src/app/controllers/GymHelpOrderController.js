@@ -43,7 +43,8 @@ class GymHelpOrderController {
       { new: true }
     );
 
-    const student = await Student.findByPk(helpOrder.student);
+    const student = await Student.findByPk(helpOrder.studentId);
+
     /**
      * Sends email to students regarding their help order questions
      */

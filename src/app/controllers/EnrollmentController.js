@@ -81,7 +81,7 @@ class EnrollmentController {
       return res.status(400).json({ error: 'Plan does not exist' });
     }
 
-    // Validate student can have only one enrollment active
+    // Validate student can have only one active enrollment
     const studentAlreadyEnrolled = await Enrollment.findAll({
       where: {
         student_id: student.id,
