@@ -34,7 +34,7 @@ This backend is implemented in  **Node.js** and provides a REST API for the feat
     - docker run --name postgres-database-dev -e POSTGRES_PASSWORD=docker -p 5432:5432 -d postgres:11
     - docker run --name mongo-database-dev -p 27017:27017 -d -t mongo
     - docker run --name redis-database-dev -p 6379:6379 -d -t redis:alpine
-- Please configure the `.env.example` file in the root directory with your corresponding information
+- Please configure the `.env.example` file in the root directory with your corresponding information and rename it to .env
 - Run `yarn sequelize db:migrate` in the root directory to run database migrations
 - Run `yarn sequelize db:seed:all` in the root directory to create an initial admin user for the application( user: admin@gympoint.com / pass: 123456)
 - In the root directory, run `yarn` to resolve node packages and then `yarn dev` to start the application (open a new terminal window in the root directory and run `yarn queue` in parallel to start the mailing queue)
